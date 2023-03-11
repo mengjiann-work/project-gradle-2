@@ -1,11 +1,13 @@
 plugins {
     id 'groovy'
+    id 'maven-publish'
 }
 
 group 'com.mj'
-version '1.0-SNAPSHOT'
+version "${version}"
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -18,3 +20,26 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+task printVersion {
+    // any code that goes here is part of configuring the task
+    // this code will always get run, even if the task is not executed
+    doLast { // add a task action
+        // any code that goes here is part of executing the task
+        // this code will only get run if and when the task gets executed
+        println project.version
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "${rootProject.group}"
+            artifactId = "${rootProject.name}"
+            version = "${rootProject.version}"
+
+            from components.java
+        }
+    }
+}
+
