@@ -1,0 +1,3 @@
+class ProjectGradleTwo {
+    String name
+}
